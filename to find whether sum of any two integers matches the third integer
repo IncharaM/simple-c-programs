@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+    
+    long long int a,b,c,sum1,sum2,sum3;
+    int i,n;
+    scanf("%d",&n);
+   
+    for(i=0;i<n;i++){
+        scanf("%lld%lld%lld",&a,&b,&c);
+        sum1=a+b;
+        sum2=a+c;
+        sum3=b+c;
+        
+            if((sum1==c)||(sum2==b)||(sum3==a))
+            {
+                printf("YES\n");
+            }
+            else
+            {
+                printf("NO\n");
+            }
+        
+    }   
+       
+    return 0;
+}
