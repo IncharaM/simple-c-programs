@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct employee
+{
+    char nm[100];
+    char id[100];
+    char sal[100];
+};
+typedef struct employee emp;
+struct node
+{
+    struct node *llink;
+    emp p;
+    struct node *rlink;
+};
+typedef struct node nd;
+nd *insert(nd *,emp );
+void recursearch(nd *,char *);
+int main()
+{
+    nd *root=0;
+    emp p;
+    char key[100];
+    int ch,i;
+    FILE *fp;
+    fp=fopen("data.txt","r");
+    for(;;)
+    {
+        printf("1.insert\n2.recursive search\n3.exit\n");
+        printf("enter the choice\n");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:fscanf(fp,"%d",&ch);
+                    for(i=0;i<ch;i++)
+                    {
+                        fscanf(fp,"%s%s%s",p.nm,p.id,p.sal);
+                        root=insert(root,p);
+                    }
+                    printf("name = %s\n",(root->p.nm));
+                    printf("name = %s\n",(root->rlink->p.nm));
+                    printf("name=%s\n",(root->llink->p.nm));
+                break;
+            case 2:printf("enter the name to be searched\n");
+                    scanf("%s",key);
+                    recursearch(root,key);
+                break;
+            default:exit(0);
+        }
+    }
+}
+nd *insert(nd *root,emp p)
+{
+    nd *cur=root,*prev=0;
+    nd *t=(nd *)malloc(sizeof(nd));
+    memcpy((t->p).nm,p.nm,sizeof(p.nm));
+    memcpy((t->p).id,p.id,sizeof(p.nm));
+    memcpy((t->p).sal,p.sal,sizeof(p.nm));
+    t->llink=t->rlink=0;
+    if(!cur)
+        return t;
+    while(cur)
+    {
+        if(strcmp((t->p).nm,(cur->p).nm)==0)
+        {
+            printf("redundancy\n");
+            free(t);
+            return root;
+        }
+        prev=cur;
+        if(strcmp((t->p).nm,(cur->p).nm)<0)
+            cur=cur->llink;
+        else
+            cur=cur->rlink;
+            
+    }
+    if(strcmp((t->p).nm,(prev->p).nm)<0)
+        prev->llink=t;
+    else
+        prev->rlink=t;
+    return root;
+}
+void recursearch(nd *root,char *key)
+{
+    if(!root)
+    {
+        printf("unsuccessful search\n");
+        return;
+    }
+    if(strcmp(key,(root->p).nm)==0)
+    {
+        printf("successful search\n");
+        return;
+    }
+    if(strcmp(key,(root->p).nm)<0)
+        return recursearch(root->llink,key);
+    return recursearch(root->rlink,key);
+}
